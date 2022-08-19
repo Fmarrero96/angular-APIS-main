@@ -7,7 +7,7 @@ import { Product } from './../models/product.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  apiUrl = 'https://young-sands-07814.herokuapp.com/api/products';
+  private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products'; //guardo la api en una variable porque la reutilizo muchas veces
 
   constructor(
     private http: HttpClient
