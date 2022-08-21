@@ -16,3 +16,6 @@ export interface Product {
 export interface CreateProductDTO extends Omit<Product, 'id' | 'category'>{ // se utiliza omit para que no tenga en cuenta los parametros que le pasas
   categoryId: number;
 }
+
+
+export interface UpdateProductDTO extends Partial<CreateProductDTO>{} // partial lo que hace es colocarle el signo de pregunta, osea los vuelve opcionales a todos
