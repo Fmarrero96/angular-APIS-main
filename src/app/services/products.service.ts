@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { CreateProductDTO, Product } from './../models/product.model';
+import { CreateProductDTO, Product, UpdateProductDTO } from './../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,9 @@ export class ProductsService {
 
   create (data: CreateProductDTO){
     return this.http.post<Product>(this.apiUrl,data); // el segundo parametro es lo que se manda en el post
+  }
+
+  update (id:string,dto: UpdateProductDTO){
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, dto); // se puede usar put o patch depende mas que nada del back end dev, put manda todo y patch manda lo que se cambia unicamente
   }
 }
