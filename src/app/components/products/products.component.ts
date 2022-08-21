@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { CreateProductDTO, Product } from '../../models/product.model';
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -54,6 +54,17 @@ export class ProductsComponent implements OnInit {
       this.toggleProductDetail(); //se pone esto aca para cuando haga el request todo ya abra, ya que no es directo
       this.productChosen = data;
     });
+  }
+
+  createNewProduct(){
+    const product : CreateProductDTO = {
+      title: 'Nuevo Producto',
+      description: 'bla bla bla',
+      images: [''],
+      price: 1000,
+      categoryId:2
+    }
+    this.productsService.create(product).subscribe(data => {console.log ('created', data); this.products.unshift(data)});
   }
 
 }
