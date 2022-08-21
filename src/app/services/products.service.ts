@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { CreateProductDTO, Product, UpdateProductDTO } from './../models/product.model';
 
@@ -13,12 +13,23 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  getAllProducts() {
-    return this.http.get<Product[]>(this.apiUrl);
+  getAllProducts(limit?: number, offset?: number) {
+    let params = new HttpParams(); // esto permite poner parametros o no
+    if (limit && offset){
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+    return this.http.get<Product[]>(this.apiUrl, {params});
   }
 
   getProduct(id:string){
     return this.http.get<Product>(`${this.apiUrl}/${id}`)
+  }
+
+  getProductByPage(limit: number, offset: number){
+    return this.http.get<Product[]>(`${this.apiUrl}`,{
+     params :{limit,offset} // le paso los parametros para limitar (la cantidad que quiero) y offset seria a partir de que posicion
+    });
   }
 
   create (data: CreateProductDTO){
