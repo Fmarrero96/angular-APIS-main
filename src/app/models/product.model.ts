@@ -11,3 +11,8 @@ export interface Product {
   description: string;
   category: category;
 }
+
+
+export interface CreateProductDTO extends Omit<Product, 'id' | 'category'>{ // se utiliza omit para que no tenga en cuenta los parametros que le pasas
+  categoryId: number;
+}
