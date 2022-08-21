@@ -28,4 +28,8 @@ export class ProductsService {
   update (id:string,dto: UpdateProductDTO){
     return this.http.put<Product>(`${this.apiUrl}/${id}`, dto); // se puede usar put o patch depende mas que nada del back end dev, put manda todo y patch manda lo que se cambia unicamente
   }
+
+  delete (id:string){
+    return this.http.delete<Boolean>(`${this.apiUrl}/${id}`)
+  }
 }
