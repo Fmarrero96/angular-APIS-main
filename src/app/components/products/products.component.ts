@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { CreateProductDTO, Product, UpdateProductDTO } from '../../models/product.model';
 
+import { switchMap } from 'rxjs/operators';
+
+import { zip } from 'rxjs';
+
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 
@@ -62,6 +66,32 @@ export class ProductsComponent implements OnInit {
       window.alert(errorMsg);
       this.statusDetail = 'error';
     });
+  }
+
+  readAndUpdate(id:string){
+    // manera para hacer cuando hay dependencias
+    this.productsService.getProduct(id).
+    pipe(
+      switchMap((product) => {return this.productsService.update(product.id, {title: 'change'})})
+    ).subscribe(
+      data =>  {
+        console.log(data);
+      }
+    );/*
+    zip( // zip cuando no hay dependecias, mejor del lado del servicio y no componente
+      this.productsService.getProduct(1),
+      this.productsService.update(id,{title:'change'})
+    ).subscribe(response => { // se guardan las respuestas en el response en un arrays
+      const product = response [0];
+      const update = response [1];
+    })*/
+    this.productsService.fetchReadAndUpdate(id,{title: 'change'} ).subscribe(
+      response => {
+        const read = response[0];
+        const update = response[1];
+      }
+    )
+
   }
 
   createNewProduct(){
