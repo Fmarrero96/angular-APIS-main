@@ -1,0 +1,10 @@
+{
+    "/api/*":{
+        "target": "https://young-sands-07814.herokuapp.com",
+        "secure":true,
+        "logLevel":"debug",
+        "change": true
+    }
+}
+
+// es una solucion no mas para el modo desarrollo para los problemas de CORS
