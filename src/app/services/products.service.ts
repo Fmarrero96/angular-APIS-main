@@ -4,12 +4,13 @@ import { retry } from 'rxjs/operators';
 
 import { CreateProductDTO, Product, UpdateProductDTO } from './../models/product.model';
 
+import { environment} from './../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products'; //guardo la api en una variable porque la reutilizo muchas veces
-
+  private apiUrl = `${environment.API_URL}/api/products`; //se desarrollo un proxy para que modifique la URL, con la interpolacion en environment.API_URL lo que hago es obtener si es un ambiente de produccion la url y si no vacio en desarrollo pero este llamaria al proxy
   constructor(
     private http: HttpClient
   ) { }
